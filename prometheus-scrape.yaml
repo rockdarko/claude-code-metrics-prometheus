@@ -1,0 +1,17 @@
+# Prometheus scrape configuration — scrape the OTel Collector's /metrics endpoint
+#
+# Add this job to your existing prometheus.yml under `scrape_configs:`.
+# Adjust the target hostname/port to wherever your Collector runs.
+#
+# The Collector exposes Claude Code's OpenTelemetry-emitted metrics on this
+# endpoint after passing them through the `prometheus` exporter (see
+# examples/otel-collector-config.yaml).
+
+scrape_configs:
+  - job_name: claude-code-metrics
+    # 30s is plenty — Claude Code emits relatively low-cardinality metrics
+    # and the dashboard's smallest meaningful resolution is per-minute.
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+          - "otel-collector:9464"   # ← replace with your Collector's host:port

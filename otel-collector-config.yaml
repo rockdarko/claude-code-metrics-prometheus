@@ -1,0 +1,47 @@
+# OpenTelemetry Collector configuration — Claude Code metrics → Prometheus
+#
+# This is a minimal, metrics-only configuration showing the pieces relevant to
+# this dashboard. If you already run a Collector for traces or logs, add the
+# `otlp` receiver and `prometheus` exporter shown below to your existing
+# pipelines configuration alongside whatever else you have.
+#
+# Pipeline:
+#   Claude Code  →  OTLP/HTTP (:4318) or OTLP/gRPC (:4317)
+#                →  Collector receivers.otlp
+#                →  Collector processors.batch
+#                →  Collector exporters.prometheus  (exposes /metrics on :9464)
+#                →  Prometheus scrapes :9464
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "0.0.0.0:4318"
+      grpc:
+        endpoint: "0.0.0.0:4317"
+
+processors:
+  batch/metrics:
+    timeout: 5s
+    send_batch_size: 128
+    send_batch_max_size: 256
+
+exporters:
+  # Hosts a Prometheus-format /metrics endpoint on :9464.
+  # Prometheus (or any Prometheus-compatible scraper: VictoriaMetrics vmagent,
+  # Grafana Alloy, Grafana Agent, etc.) scrapes this endpoint.
+  prometheus:
+    endpoint: "0.0.0.0:9464"
+    # Optional but recommended: promotes OpenTelemetry resource attributes
+    # (service.name, etc.) to Prometheus labels, making them filterable.
+    resource_to_telemetry_conversion:
+      enabled: true
+    # Optional: preserves original OTel timestamps rather than ingest time.
+    send_timestamps: true
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch/metrics]
+      exporters: [prometheus]
