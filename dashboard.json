@@ -1,4 +1,59 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "Prometheus-compatible data source (Prometheus, VictoriaMetrics, Mimir, or Thanos).",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -19,7 +74,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 91,
+  "id": null,
   "links": [
     {
       "asDropdown": false,
@@ -51,7 +106,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total number of Claude Code sessions started in the selected time range",
       "fieldConfig": {
@@ -104,7 +159,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "count(count by (session_id) (max_over_time(claude_code_session_count_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range]))) or vector(0)",
@@ -119,7 +174,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Number of unique users who used Claude Code in the selected time range",
       "fieldConfig": {
@@ -172,7 +227,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "count(count by (user_email) (max_over_time(claude_code_session_count_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range]))) or vector(0)",
@@ -187,7 +242,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total estimated cost in USD based on token usage and model pricing",
       "fieldConfig": {
@@ -248,7 +303,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range]))",
@@ -263,7 +318,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total tokens consumed including input, output, cache read, and cache creation tokens",
       "fieldConfig": {
@@ -316,7 +371,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range]))",
@@ -331,7 +386,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total git commits created using Claude Code",
       "fieldConfig": {
@@ -384,7 +439,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_commit_count_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range])) or vector(0)",
@@ -399,7 +454,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total pull requests created using Claude Code",
       "fieldConfig": {
@@ -452,7 +507,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_pull_request_count_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range])) or vector(0)",
@@ -467,7 +522,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total lines of code added by Claude Code",
       "fieldConfig": {
@@ -520,7 +575,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_lines_of_code_count_total{organization_id=~\"$organization\", user_email=~\"$user\", type=\"added\"}[$__range])) or vector(0)",
@@ -535,7 +590,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total lines of code removed by Claude Code",
       "fieldConfig": {
@@ -588,7 +643,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_lines_of_code_count_total{organization_id=~\"$organization\", user_email=~\"$user\", type=\"removed\"}[$__range])) or vector(0)",
@@ -603,7 +658,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Time breakdown: 'cli' = time Claude Code is processing, 'user' = time waiting for user input",
       "fieldConfig": {
@@ -686,7 +741,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_active_time_seconds_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range])) by (type)",
@@ -701,7 +756,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Token usage by type: input (prompt), output (response), cacheRead (from cache), cacheCreation (added to cache)",
       "fieldConfig": {
@@ -814,7 +869,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (type)",
@@ -829,7 +884,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Tool edit decisions: 'accept' = user accepted the edit, 'reject' = user rejected the edit",
       "fieldConfig": {
@@ -912,7 +967,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_code_edit_tool_decision_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range])) by (decision)",
@@ -925,7 +980,7 @@
       "type": "stat"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -933,445 +988,444 @@
         "y": 11
       },
       "id": 23,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Top 10 users ranked by total cost in the selected time range",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "currencyUSD"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 8,
-            "x": 0,
-            "y": 12
-          },
-          "id": 24,
-          "options": {
-            "displayMode": "gradient",
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "maxVizHeight": 300,
-            "minVizHeight": 16,
-            "minVizWidth": 8,
-            "namePlacement": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "topk(10, sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (user_email))",
-              "legendFormat": "{{user_email}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Top Users by Cost",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Top 10 users ranked by total token consumption",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 8,
-            "x": 8,
-            "y": 12
-          },
-          "id": 25,
-          "options": {
-            "displayMode": "gradient",
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "maxVizHeight": 300,
-            "minVizHeight": 16,
-            "minVizWidth": 8,
-            "namePlacement": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "topk(10, sum(increase(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (user_email))",
-              "legendFormat": "{{user_email}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Top Users by Tokens",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Top 10 most expensive sessions in the selected window. Useful for spotting runaway sessions. Once OTEL_RESOURCE_ATTRIBUTES=git.repo=\u2026 is set on the shell that launches Claude, this panel can be repointed to group by `git_repo`.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "currencyUSD"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 8,
-            "x": 16,
-            "y": 12
-          },
-          "id": 26,
-          "options": {
-            "displayMode": "gradient",
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "maxVizHeight": 300,
-            "minVizHeight": 16,
-            "minVizWidth": 8,
-            "namePlacement": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "topk(10, sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (session_id))",
-              "legendFormat": "{{session_id}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Top Sessions by Cost",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Cost distribution across different Claude models",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": [],
-              "unit": "currencyUSD"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 0,
-            "y": 31
-          },
-          "id": 27,
-          "options": {
-            "legend": {
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
-            },
-            "pieType": "donut",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "sort": "desc",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (model)",
-              "legendFormat": "{{model}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Cost by Model",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Distribution of tool usage across programming languages",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": [],
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 31
-          },
-          "id": 28,
-          "options": {
-            "legend": {
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
-            },
-            "pieType": "donut",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "sort": "desc",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "sum(increase(claude_code_code_edit_tool_decision_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range])) by (language)",
-              "legendFormat": "{{language}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Edit Decisions by Language",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Distinct session count grouped by terminal_type over the dashboard time range. Counts unique session_ids rather than summing rate-of-change, so it is robust to OTLP delta/cumulative ambiguity.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": [],
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 31
-          },
-          "id": 29,
-          "options": {
-            "legend": {
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
-            },
-            "pieType": "donut",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "sort": "desc",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "count by (terminal_type) (count by (session_id, terminal_type) (max_over_time(claude_code_session_count_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range])))",
-              "legendFormat": "{{terminal_type}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Sessions by Terminal",
-          "type": "piechart"
-        }
-      ],
+      "panels": [],
       "title": "Leaderboards",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Top 10 users ranked by total cost in the selected time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 0,
+        "y": 12
+      },
+      "id": 24,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "topk(10, sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (user_email))",
+          "legendFormat": "{{user_email}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Top Users by Cost",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Top 10 users ranked by total token consumption",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 8,
+        "y": 12
+      },
+      "id": 25,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "topk(10, sum(increase(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (user_email))",
+          "legendFormat": "{{user_email}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Top Users by Tokens",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Top 10 most expensive sessions in the selected window. Useful for spotting runaway sessions. Once OTEL_RESOURCE_ATTRIBUTES=git.repo=\u2026 is set on the shell that launches Claude, this panel can be repointed to group by `git_repo`.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 16,
+        "y": 12
+      },
+      "id": 26,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "topk(10, sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (session_id))",
+          "legendFormat": "{{session_id}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Top Sessions by Cost",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Cost distribution across different Claude models",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 15
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "sort": "desc",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (model)",
+          "legendFormat": "{{model}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Cost by Model",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Distribution of tool usage across programming languages",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 15
+      },
+      "id": 28,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "sort": "desc",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(increase(claude_code_code_edit_tool_decision_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range])) by (language)",
+          "legendFormat": "{{language}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Edit Decisions by Language",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Distinct session count grouped by terminal_type over the dashboard time range. Counts unique session_ids rather than summing rate-of-change, so it is robust to OTLP delta/cumulative ambiguity.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 15
+      },
+      "id": 29,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "sort": "desc",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "count by (terminal_type) (count by (session_id, terminal_type) (max_over_time(claude_code_session_count_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__range])))",
+          "legendFormat": "{{terminal_type}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Sessions by Terminal",
+      "type": "piechart"
     },
     {
       "collapsed": false,
@@ -1379,7 +1433,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 23
       },
       "id": 13,
       "panels": [],
@@ -1389,7 +1443,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Estimated cost rate over time (USD per hour)",
       "fieldConfig": {
@@ -1449,7 +1503,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 13
+        "y": 24
       },
       "id": 14,
       "options": {
@@ -1472,7 +1526,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__rate_interval])) * 3600",
@@ -1487,7 +1541,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Cost breakdown by Claude model (e.g., claude-opus-4-6, claude-haiku-4-5)",
       "fieldConfig": {
@@ -1547,7 +1601,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 24
       },
       "id": 15,
       "options": {
@@ -1570,7 +1624,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__rate_interval])) by (model) * 3600",
@@ -1585,7 +1639,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Token consumption rate by type (input, output, cacheRead, cacheCreation)",
       "fieldConfig": {
@@ -1706,7 +1760,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 32
       },
       "id": 16,
       "options": {
@@ -1729,7 +1783,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__rate_interval])) by (type)",
@@ -1744,7 +1798,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Token consumption rate by Claude model",
       "fieldConfig": {
@@ -1804,7 +1858,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 32
       },
       "id": 17,
       "options": {
@@ -1827,7 +1881,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__rate_interval])) by (model)",
@@ -1845,7 +1899,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 40
       },
       "id": 18,
       "panels": [],
@@ -1855,7 +1909,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Active time per hour: 'cli' = Claude Code processing time, 'user' = user interaction time",
       "fieldConfig": {
@@ -1944,9 +1998,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 30
+        "w": 24,
+        "x": 0,
+        "y": 41
       },
       "id": 20,
       "options": {
@@ -1969,7 +2023,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(claude_code_active_time_seconds_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__rate_interval])) by (type) * 3600",
@@ -1984,7 +2038,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Lines of code modified by Claude Code per hour",
       "fieldConfig": {
@@ -2075,7 +2129,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 49
       },
       "id": 21,
       "options": {
@@ -2098,7 +2152,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(claude_code_lines_of_code_count_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__rate_interval])) by (type) * 3600",
@@ -2113,7 +2167,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dekifm72n41kwf"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "User decisions on Claude Code tool suggestions (accept vs reject)",
       "fieldConfig": {
@@ -2204,7 +2258,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 49
       },
       "id": 22,
       "options": {
@@ -2227,7 +2281,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dekifm72n41kwf"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(increase(claude_code_code_edit_tool_decision_total{organization_id=~\"$organization\", user_email=~\"$user\"}[$__rate_interval])) by (decision)",
@@ -2240,239 +2294,238 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 57
       },
       "id": 30,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Splits cost between the main session and auxiliary tasks (subagents, background calls). High auxiliary cost relative to main may indicate over-delegation to subagents.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": [],
-              "unit": "currencyUSD"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 0,
-            "y": 48
-          },
-          "id": 31,
-          "options": {
-            "legend": {
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
-            },
-            "pieType": "donut",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "sort": "desc",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (query_source)",
-              "legendFormat": "{{query_source}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Cost by query_source",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Cost distribution by reasoning-effort tier (xhigh, etc.). Reveals which thinking modes drive your spend.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": [],
-              "unit": "currencyUSD"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 48
-          },
-          "id": 32,
-          "options": {
-            "legend": {
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "value",
-                "percent"
-              ]
-            },
-            "pieType": "donut",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "sort": "desc",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (effort)",
-              "legendFormat": "{{effort}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Cost by effort",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dekifm72n41kwf"
-          },
-          "description": "Fraction of input tokens served from prompt cache (cacheRead vs cacheRead+cacheCreation+input). Higher = better cache reuse = lower cost. Below ~40% means caching is not really helping.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 1,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red",
-                    "value": null
-                  },
-                  {
-                    "color": "orange",
-                    "value": 0.4
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 0.6
-                  },
-                  {
-                    "color": "green",
-                    "value": 0.75
-                  }
-                ]
-              },
-              "unit": "percentunit"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 48
-          },
-          "id": 33,
-          "options": {
-            "minVizHeight": 75,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "12.4.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "dekifm72n41kwf"
-              },
-              "editorMode": "code",
-              "expr": "sum(rate(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\", type=\"cacheRead\"}[$__rate_interval])) / sum(rate(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\", type=~\"cacheRead|cacheCreation|input\"}[$__rate_interval]))",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Cache hit ratio",
-          "type": "gauge"
-        }
-      ],
+      "panels": [],
       "title": "Cost Breakdown",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Splits cost between the main session and auxiliary tasks (subagents, background calls). High auxiliary cost relative to main may indicate over-delegation to subagents.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 58
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "sort": "desc",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (query_source)",
+          "legendFormat": "{{query_source}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Cost by query_source",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Cost distribution by reasoning-effort tier (xhigh, etc.). Reveals which thinking modes drive your spend.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 58
+      },
+      "id": 32,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "sort": "desc",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(increase(claude_code_cost_usage_USD_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\"}[$__range])) by (effort)",
+          "legendFormat": "{{effort}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Cost by effort",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Fraction of input tokens served from prompt cache (cacheRead vs cacheRead+cacheCreation+input). Higher = better cache reuse = lower cost. Below ~40% means caching is not really helping.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.4
+              },
+              {
+                "color": "yellow",
+                "value": 0.6
+              },
+              {
+                "color": "green",
+                "value": 0.75
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 58
+      },
+      "id": 33,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\", type=\"cacheRead\"}[$__rate_interval])) / sum(rate(claude_code_token_usage_tokens_total{organization_id=~\"$organization\", user_email=~\"$user\", model=~\"$model\", type=~\"cacheRead|cacheCreation|input\"}[$__rate_interval]))",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Cache hit ratio",
+      "type": "gauge"
     }
   ],
   "preload": false,
@@ -2514,7 +2567,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "dekifm72n41kwf"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(claude_code_session_count_total, organization_id)",
         "includeAll": true,
@@ -2539,7 +2592,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "dekifm72n41kwf"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(claude_code_session_count_total{organization_id=~\"$organization\"}, user_email)",
         "includeAll": true,
@@ -2564,7 +2617,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "dekifm72n41kwf"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(claude_code_token_usage_tokens_total{organization_id=~\"$organization\"}, model)",
         "includeAll": true,

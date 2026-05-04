@@ -3,7 +3,7 @@
 A Grafana dashboard for monitoring [Claude Code](https://www.claude.com/product/claude-code) CLI usage on Prometheus-compatible backends. Consumes Claude Code's OpenTelemetry metrics (emitted via OTLP) and queries them with PromQL. Compatible with Prometheus, VictoriaMetrics, Mimir, and Thanos.
 
 > **grafana.com:** *(listing link to be added on first publish)*
-> **Inspired by** [dashboard 25052 by 1w2w3y](https://grafana.com/grafana/dashboards/25052-claude-code/), which targets Azure Application Insights via KQL. This is a parallel implementation for the Prometheus stack — every panel re-queried in PromQL against Anthropic's published OpenTelemetry metric names.
+> **Inspired by** [dashboard 25052 by 1w2w3y](https://grafana.com/grafana/dashboards/25052-claude-code/), which targets Azure Application Insights via KQL. This is a parallel implementation for the Prometheus stack, with every panel re-queried in PromQL against Anthropic's published OpenTelemetry metric names.
 
 ## Screenshots
 
@@ -21,17 +21,17 @@ A Grafana dashboard for monitoring [Claude Code](https://www.claude.com/product/
 
 ## What's in it
 
-**Overview** — at-a-glance KPIs: sessions, users, total cost, total tokens, commits, pull requests, lines added/removed, active time, tokens by type, and tool decisions.
+**Overview**: KPIs for sessions, users, total cost, total tokens, commits, pull requests, lines added/removed, active time, tokens by type, and tool decisions.
 
-**Leaderboards** — top users by cost and tokens, top sessions by cost, cost by model, edit decisions by language, and sessions by terminal.
+**Leaderboards**: top users by cost and tokens, top sessions by cost, cost by model, edit decisions by language, and sessions by terminal.
 
-**Cost & Tokens** — cost over time (overall and by model) and token usage over time (by type and by model).
+**Cost & Tokens**: cost over time (overall and by model) and token usage over time (by type and by model).
 
-**Activity & Productivity** — active time per hour, lines of code per hour, and tool decisions over time.
+**Activity & Productivity**: active time per hour, lines of code per hour, and tool decisions over time.
 
-**Cost Breakdown** — cost by query source, cost by effort, and cache hit ratio.
+**Cost Breakdown**: cost by query source, cost by effort, and cache hit ratio.
 
-The dashboard uses three header variables — `organization`, `user`, and `model` — for filtering. Default time range is the last 7 days.
+The dashboard uses three header variables for filtering: `organization`, `user`, and `model`. Default time range is the last 7 days.
 
 ## Requirements
 
@@ -63,8 +63,8 @@ export OTEL_EXPORTER_OTLP_ENDPOINT="http://your-collector:4318"
 
 # Recommended: pin temporality to cumulative. Prometheus-family backends
 # require cumulative counters. The OpenTelemetry SDK currently defaults to
-# cumulative, but defaults can drift between SDK versions — being explicit
-# avoids silent breakage on upgrades.
+# cumulative, but defaults can drift between SDK versions, so set it
+# explicitly to avoid silent breakage on upgrades.
 export OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative
 ```
 
@@ -111,13 +111,13 @@ Filter labels used: `organization_id`, `user_email`, `model`, `session_id`, `ter
 
 **No data anywhere.** Verify the full pipeline by checking each hop:
 
-1. Is Claude Code emitting? Run any Claude Code command, then `curl http://your-collector:9464/metrics | grep claude_code_` — you should see Claude Code's metric series listed.
+1. Is Claude Code emitting? Run any Claude Code command, then `curl http://your-collector:9464/metrics | grep claude_code_`. You should see Claude Code's metric series listed.
 2. Is Prometheus scraping? In Prometheus, go to *Status → Targets* and confirm the `claude-code-metrics` (or whatever you named it) job is `UP`.
-3. Are queries finding data? In Grafana *Explore*, select your Prometheus data source and query `claude_code_session_count_total` — values should appear.
+3. Are queries finding data? In Grafana *Explore*, select your Prometheus data source and query `claude_code_session_count_total`. Values should appear.
 
 **Some panels show data but `Sessions by Terminal` (or other panels using `count` aggregations) is empty.** Check that your Collector's `prometheus` exporter has `resource_to_telemetry_conversion: enabled: true` set (see the example config). Without it, some attribute-derived labels may not be exposed.
 
-**Counters look wrong (negative rates, jumps to zero).** Likely a temporality mismatch — Claude Code emitting delta metrics into a cumulative-expecting backend. Set `OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative` in Claude Code's environment.
+**Counters look wrong (negative rates, jumps to zero).** Likely a temporality mismatch, with Claude Code emitting delta metrics into a cumulative-expecting backend. Set `OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative` in Claude Code's environment.
 
 **`Pull Requests = 0` even though I've made PRs.** Claude Code only emits the PR counter when *Claude Code itself* opens the PR (e.g., via the `gh` CLI inside a Claude Code session). PRs you open manually outside Claude Code don't count.
 
@@ -125,7 +125,7 @@ Filter labels used: `organization_id`, `user_email`, `model`, `session_id`, `ter
 
 ## Contributing
 
-Issues and pull requests welcome. If you've extended the dashboard with panels that work well — particularly anything that adds custom labels via Collector processors — please open an issue describing the setup; useful patterns may make their way into the canonical version.
+Issues and pull requests welcome. If you've extended the dashboard with panels that work well, particularly anything that adds custom labels via Collector processors, please open an issue describing the setup. Useful patterns may make their way into the canonical version.
 
 For dashboard JSON edits: please make changes in Grafana's UI, export, and submit the resulting JSON. Hand-editing the JSON file directly tends to introduce subtle structural issues that aren't visible until import.
 
