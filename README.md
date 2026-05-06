@@ -2,7 +2,7 @@
 
 A Grafana dashboard for monitoring [Claude Code](https://www.claude.com/product/claude-code) CLI usage on Prometheus-compatible backends. Consumes Claude Code's OpenTelemetry metrics (emitted via OTLP) and queries them with PromQL. Compatible with Prometheus, VictoriaMetrics, Mimir, and Thanos.
 
-> **grafana.com:** *(listing link to be added on first publish)*
+> **grafana.com:** https://grafana.com/grafana/dashboards/25255-claude-code-metrics-prometheus/
 > **Inspired by** [dashboard 25052 by 1w2w3y](https://grafana.com/grafana/dashboards/25052-claude-code/), which targets Azure Application Insights via KQL. This is a parallel implementation for the Prometheus stack, with every panel re-queried in PromQL against Anthropic's published OpenTelemetry metric names.
 
 ## Screenshots
@@ -72,13 +72,13 @@ For full details on Claude Code's telemetry options, see [Anthropic's monitoring
 
 ### 2. Configure the OTel Collector
 
-A minimal Collector configuration that accepts OTLP from Claude Code and exposes a Prometheus `/metrics` endpoint is provided in [`examples/otel-collector-config.yaml`](examples/otel-collector-config.yaml).
+A minimal Collector configuration that accepts OTLP from Claude Code and exposes a Prometheus `/metrics` endpoint is provided in [`otel-collector-config.yaml`](otel-collector-config.yaml).
 
 If you already run a Collector with other pipelines (traces, logs), add the `otlp` receiver and `prometheus` exporter to it; you don't need a separate Collector.
 
 ### 3. Configure Prometheus to scrape the Collector
 
-Add a scrape job pointing at the Collector's Prometheus exporter port (default `:9464`). Example in [`examples/prometheus-scrape.yaml`](examples/prometheus-scrape.yaml).
+Add a scrape job pointing at the Collector's Prometheus exporter port (default `:9464`). Example in [`prometheus-scrape.yaml`](prometheus-scrape.yaml).
 
 VictoriaMetrics, Grafana Mimir, and Thanos all accept the same scrape job configuration in their scraper components (`vmagent`, distributor with `--web.enable-otlp-receiver`, etc.).
 
