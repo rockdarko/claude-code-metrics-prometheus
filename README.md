@@ -2,7 +2,7 @@
 
 A Grafana dashboard for monitoring [Claude Code](https://www.claude.com/product/claude-code) CLI usage on Prometheus-compatible backends. Consumes Claude Code's OpenTelemetry metrics (emitted via OTLP) and queries them with PromQL. Compatible with Prometheus, VictoriaMetrics, Mimir, and Thanos.
 
-> **grafana.com:** *(listing link to be added on first publish)*
+> **grafana.com:** [dashboard 25255](https://grafana.com/grafana/dashboards/25255-claude-code-metrics-prometheus/)
 > **Inspired by** [dashboard 25052 by 1w2w3y](https://grafana.com/grafana/dashboards/25052-claude-code/), which targets Azure Application Insights via KQL. This is a parallel implementation for the Prometheus stack, with every panel re-queried in PromQL against Anthropic's published OpenTelemetry metric names.
 
 ## Screenshots
