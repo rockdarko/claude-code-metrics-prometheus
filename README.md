@@ -23,7 +23,7 @@ A Grafana dashboard for monitoring [Claude Code](https://www.claude.com/product/
 
 **Overview**: KPIs for sessions, users, total cost, total tokens, commits, pull requests, lines added/removed, active time, tokens by type, and tool decisions.
 
-**Leaderboards**: top users by cost and tokens, top sessions by cost, cost by model, edit decisions by language, and sessions by terminal.
+**Leaderboards**: top users by cost and tokens, top sessions by cost, top repos by cost (off by default, see [Optional: per-repo cost attribution](#optional-per-repo-cost-attribution)), cost by model, edit decisions by language, and sessions by terminal.
 
 **Cost & Tokens**: cost over time (overall and by model) and token usage over time (by type and by model).
 
@@ -69,6 +69,27 @@ export OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative
 ```
 
 For full details on Claude Code's telemetry options, see [Anthropic's monitoring documentation](https://docs.claude.com/en/docs/claude-code/monitoring-usage).
+
+#### Optional: per-repo cost attribution
+
+By default Claude Code's OTLP stream has no repo identifier, so the **Top Repos by Cost** panel will be empty. To populate it, set the `git.repo` OpenTelemetry resource attribute on the shell that launches Claude. A wrapper that derives the repo name from the current working directory works well:
+
+```bash
+claude() {
+  local repo
+  repo="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null)"
+  if [ -n "$repo" ]; then
+    OTEL_RESOURCE_ATTRIBUTES="${OTEL_RESOURCE_ATTRIBUTES:+$OTEL_RESOURCE_ATTRIBUTES,}git.repo=${repo##*/}" \
+      command claude "$@"
+  else
+    command claude "$@"
+  fi
+}
+```
+
+This sets `git.repo` to the basename of the repo root. If you have multiple repos sharing a basename, derive a more specific value (for example from `git remote get-url origin`) instead.
+
+The Collector's `resource_to_telemetry_conversion: enabled: true` (already in the example config) promotes `git.repo` to the Prometheus label `git_repo` automatically. No additional Collector or Prometheus configuration is needed.
 
 ### 2. Configure the OTel Collector
 
