@@ -93,13 +93,13 @@ The Collector's `resource_to_telemetry_conversion: enabled: true` (already in th
 
 ### 2. Configure the OTel Collector
 
-A minimal Collector configuration that accepts OTLP from Claude Code and exposes a Prometheus `/metrics` endpoint is provided in [`examples/otel-collector-config.yaml`](examples/otel-collector-config.yaml).
+A minimal Collector configuration that accepts OTLP from Claude Code and exposes a Prometheus `/metrics` endpoint is provided in [`otel-collector-config.yaml`](otel-collector-config.yaml).
 
 If you already run a Collector with other pipelines (traces, logs), add the `otlp` receiver and `prometheus` exporter to it; you don't need a separate Collector.
 
 ### 3. Configure Prometheus to scrape the Collector
 
-Add a scrape job pointing at the Collector's Prometheus exporter port (default `:9464`). Example in [`examples/prometheus-scrape.yaml`](examples/prometheus-scrape.yaml).
+Add a scrape job pointing at the Collector's Prometheus exporter port (default `:9464`). Example in [`prometheus-scrape.yaml`](prometheus-scrape.yaml).
 
 VictoriaMetrics, Grafana Mimir, and Thanos all accept the same scrape job configuration in their scraper components (`vmagent`, distributor with `--web.enable-otlp-receiver`, etc.).
 
