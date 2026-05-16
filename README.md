@@ -70,6 +70,22 @@ export OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative
 
 For full details on Claude Code's telemetry options, see [Anthropic's monitoring documentation](https://docs.claude.com/en/docs/claude-code/monitoring-usage).
 
+#### Rolling out to a team
+
+The same `env` block works in two centralized locations that take precedence over each user's `~/.claude/settings.json`, so you don't have to touch every developer's machine.
+
+If your org has the Claude.ai admin console (Teams / Enterprise plans), use *Managed settings → Claude Code*. Settings sync to every client at startup and hourly after that, and users can't override them.
+
+Otherwise, drop a `settings.json` at the OS managed-settings path and push it via MDM, Ansible, or whatever config tool you already use:
+
+```
+macOS:   ~/Library/Application Support/Claude Code/settings.json
+Linux:   ~/.config/Claude Code/settings.json
+Windows: %APPDATA%\Claude Code\settings.json
+```
+
+See [Claude Code settings precedence](https://docs.claude.com/en/docs/claude-code/settings) for the full chain.
+
 #### Optional: per-repo cost attribution
 
 By default Claude Code's OTLP stream has no repo identifier, so the **Top Repos by Cost** panel will be empty. To populate it, set the `git.repo` OpenTelemetry resource attribute on the shell that launches Claude. A wrapper that derives the repo name from the current working directory works well:
